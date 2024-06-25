@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JNTUGV R-20 2-2 RESULTS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: white; /* White background */
+            color: black; /* Black text */
+        }
+        header {
+            background-color: #fff;
+            color: black;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .container {
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        form label {
+            margin-bottom: 5px;
+        }
+        form input {
+            margin-bottom: 10px; /* Reduced gap */
+        }
+        .name-display {
+            font-size: 1.2em;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .results {
+            margin-top: 20px;
+            display: none;
+            text-align: left;
+            width: 80%;
+            margin: 0 auto; /* Center the results table */
+        }
+        .results table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .results th, .results td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .results th {
+            background-color: #f2f2f2;
+        }
+        .prominent-text {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>JNTUGV R-20 2-2 RESULTS</h1>
+    </header>
+    <div class="container">
+        <img src="logo.png" alt="Logo" class="logo">
+        <form id="resultForm">
+            <label for="hallTicket">Hall Ticket Number:</label>
+            <input type="text" id="hallTicket" name="hallTicket" required>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="name-display" id="nameDisplay"></div>
+        <audio id="submitAudio" src="submit_song.mp3"></audio>
+        <audio id="resultAudio" src="result_song.mp3"></audio>
+        <div class="results" id="resultsDiv">
+            <p class="prominent-text" id="studentDetails"></p>
+            <p>rule no1, never trust anyone 😂😂😝</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Category</th>
+                        <th>Name of the subject</th>
+                        <th>Status</th>
+                        <th>Grade</th>
+                        <th>Credits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>PC</td><td>Electronic Circuit Analysis</td><td>P</td><td>A+</td><td>3</td></tr>
+                    <tr><td>2</td><td>PC</td><td>Digital IC Design</td><td>P</td><td>A+</td><td>3</td></tr>
+                    <tr><td>3</td><td>PC</td><td>Analog Communications</td><td>P</td><td>A+</td><td>3</td></tr>
+                    <tr><td>4</td><td>ES</td><td>Linear control Systems</td><td>P</td><td>A+</td><td>3</td></tr>
+                    <tr><td>5</td><td>HS</td><td>Management and Organizational Behavior</td><td>P</td><td>A+</td><td>3</td></tr>
+                    <tr><td>6</td><td>LC</td><td>Electronic Circuit Analysis Lab</td><td>P</td><td>A+</td><td>1.5</td></tr>
+                    <tr><td>7</td><td>LC</td><td>Analog Communications Lab</td><td>P</td><td>A+</td><td>1.5</td></tr>
+                    <tr><td>8</td><td>LC</td><td>Digital IC Design Lab</td><td>P</td><td>A+</td><td>1.5</td></tr>
+                    <tr><td>9</td><td>SC</td><td>Soft Skills</td><td>P</td><td>A+</td><td>2</td></tr>
+                    <tr><td>10</td><td>MC</td><td>Constitution of India</td><td>P</td><td>A+</td><td>0</td></tr>
+                </tbody>
+            </table>
+            <button onclick="goBack()">Go Back</button>
+            <p>if you want any websites message me 9705353611</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('resultForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const hallTicket = document.getElementById('hallTicket').value;
+            const name = document.getElementById('name').value;
+            document.getElementById('submitAudio').play();
+
+            document.getElementById('nameDisplay').innerText = hallTicket;  // Display hall ticket number below submit button
+
+            if (hallTicket.startsWith('2')) {
+                document.getElementById('studentDetails').innerText = `${name}`;  // Display name in the results section
+                document.getElementById('resultsDiv').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('resultAudio').play();
+                }, 3000);  // Play result song after 3 seconds
+            } else {
+                alert('Invalid Hall Ticket Number');
+            }
+        });
+
+        function goBack() {
+            document.getElementById('resultsDiv').style.display = 'none';
+            document.getElementById('hallTicket').value = '';
+            document.getElementById('name').value = '';
+            document.getElementById('nameDisplay').innerText = '';
+            document.getElementById('submitAudio').play();
+        }
+    </script>
+</body>
+</html>
