@@ -101,7 +101,7 @@
         <div class="results" id="resultsDiv">
             <p class="prominent-text" id="studentDetails"></p>
             <p>rule no1, never trust anyone 😂😂😝</p>
-            <table>
+            <table id="resultsTable">
                 <thead>
                     <tr>
                         <th>S.No.</th>
@@ -113,16 +113,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>1</td><td>PC</td><td>Electronic Circuit Analysis</td><td>P</td><td>A+</td><td>3</td></tr>
-                    <tr><td>2</td><td>PC</td><td>Digital IC Design</td><td>P</td><td>A+</td><td>3</td></tr>
-                    <tr><td>3</td><td>PC</td><td>Analog Communications</td><td>P</td><td>A+</td><td>3</td></tr>
-                    <tr><td>4</td><td>ES</td><td>Linear control Systems</td><td>P</td><td>A+</td><td>3</td></tr>
-                    <tr><td>5</td><td>HS</td><td>Management and Organizational Behavior</td><td>P</td><td>A+</td><td>3</td></tr>
-                    <tr><td>6</td><td>LC</td><td>Electronic Circuit Analysis Lab</td><td>P</td><td>A+</td><td>1.5</td></tr>
-                    <tr><td>7</td><td>LC</td><td>Analog Communications Lab</td><td>P</td><td>A+</td><td>1.5</td></tr>
-                    <tr><td>8</td><td>LC</td><td>Digital IC Design Lab</td><td>P</td><td>A+</td><td>1.5</td></tr>
-                    <tr><td>9</td><td>SC</td><td>Soft Skills</td><td>P</td><td>A+</td><td>2</td></tr>
-                    <tr><td>10</td><td>MC</td><td>Constitution of India</td><td>P</td><td>A+</td><td>0</td></tr>
+                    <!-- Default subjects will be populated here -->
                 </tbody>
             </table>
             <button onclick="goBack()">Go Back</button>
@@ -131,6 +122,31 @@
     </div>
 
     <script>
+        const defaultSubjects = [
+            { sNo: 1, category: 'PC', subject: 'Electronic Circuit Analysis', status: 'P', grade: 'A+', credits: 3 },
+            { sNo: 2, category: 'PC', subject: 'Digital IC Design', status: 'P', grade: 'A+', credits: 3 },
+            { sNo: 3, category: 'PC', subject: 'Analog Communications', status: 'P', grade: 'A+', credits: 3 },
+            { sNo: 4, category: 'ES', subject: 'Linear control Systems', status: 'P', grade: 'A+', credits: 3 },
+            { sNo: 5, category: 'HS', subject: 'Management and Organizational Behavior', status: 'P', grade: 'A+', credits: 3 },
+            { sNo: 6, category: 'LC', subject: 'Electronic Circuit Analysis Lab', status: 'P', grade: 'A+', credits: 1.5 },
+            { sNo: 7, category: 'LC', subject: 'Analog Communications Lab', status: 'P', grade: 'A+', credits: 1.5 },
+            { sNo: 8, category: 'LC', subject: 'Digital IC Design Lab', status: 'P', grade: 'A+', credits: 1.5 },
+            { sNo: 9, category: 'SC', subject: 'Soft Skills', status: 'P', grade: 'A+', credits: 2 },
+            { sNo: 10, category: 'MC', subject: 'Constitution of India', status: 'P', grade: 'A+', credits: 0 }
+        ];
+
+        const specialSubjects = [
+            { sNo: 1, category: 'BS', subject: 'Probability and Statistics', status: 'P', grade: 'A+', credits: 3 },
+            { sNo: 2, category: 'CS', subject: 'Database Management Systems', status: 'P', grade: 'A+', credits: 3 },
+            { sNo: 3, category: 'CS', subject: 'Formal Languages and Automata Theory', status: 'P', grade: 'A+', credits: 3 },
+            { sNo: 4, category: 'ES', subject: 'Java Programming', status: 'P', grade: 'A+', credits: 3 },
+            { sNo: 5, category: 'HS', subject: 'Managerial Economics and Financial Accountancy', status: 'P', grade: 'A+', credits: 3 },
+            { sNo: 6, category: 'CS', subject: 'Database Management Systems Lab', status: 'P', grade: 'A+', credits: 1 },
+            { sNo: 7, category: 'CS', subject: 'R Programming Lab', status: 'P', grade: 'A+', credits: 2 },
+            { sNo: 8, category: 'ES', subject: 'Java Programming Lab', status: 'P', grade: 'A+', credits: 1.5 },
+            { sNo: 9, category: 'SO', subject: 'Skill Oriented Course - II', status: 'P', grade: 'A+', credits: 2 }
+        ];
+
         document.getElementById('resultForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const hallTicket = document.getElementById('hallTicket').value;
@@ -141,6 +157,23 @@
 
             if (hallTicket.startsWith('2')) {
                 document.getElementById('studentDetails').innerText = `${name}`;  // Display name in the results section
+
+                const subjects = hallTicket[hallTicket.length - 3] === '5' ? specialSubjects : defaultSubjects;
+                const tbody = document.querySelector('#resultsTable tbody');
+                tbody.innerHTML = '';
+
+                subjects.forEach(subject => {
+                    const row = `<tr>
+                                    <td>${subject.sNo}</td>
+                                    <td>${subject.category}</td>
+                                    <td>${subject.subject}</td>
+                                    <td>${subject.status}</td>
+                                    <td>${subject.grade}</td>
+                                    <td>${subject.credits}</td>
+                                </tr>`;
+                    tbody.innerHTML += row;
+                });
+
                 document.getElementById('resultsDiv').style.display = 'block';
                 setTimeout(() => {
                     document.getElementById('resultAudio').play();
